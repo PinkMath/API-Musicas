@@ -36,15 +36,18 @@ app.get("/musicas", (req, res) => {
 });
 
 app.get("/musicas/nome/:nomeid", (req, res) => {
-  const nome = req.params.nomeid.toLowerCase;
-  const misc = musicas.find((m) => m.nomemusica.toLowerCase === nome);
+  const nome = req.params.nomeid.toLowerCase();
+
+  const misc = musicas.find(
+    (m) => m.nomemusica.toLowerCase() === nome
+  );
 
   if (misc) {
     res.status(200).json(misc);
   } else {
-    res
-      .status(404)
-      .json({ message: "este produto nao pode ser encontrada :(" });
+    res.status(404).json({
+      message: "esta musica nao pode ser encontrada :(",
+    });
   }
 });
 
@@ -57,7 +60,7 @@ app.get("/musicas/:id", (req, res) => {
   } else {
     res
       .status(404)
-      .json({ message: "este produto nao pode ser encontrada :(" });
+      .json({ message: "esta musica nao pode ser encontrada :(" });
   }
 });
 
@@ -106,7 +109,7 @@ app.put("/musicas/:id", (req, res) => {
     res.status(200).json(musicas[index]);
   } else {
     res.status(404).json({
-      mensagem: `Produto ${id} não encontrado`,
+      mensagem: `musica ${id} não encontrada`,
     });
   }
 });
@@ -118,10 +121,11 @@ app.delete("/musicas/:id", (req, res) => {
 
   if (index !== -1) {
     musicas.splice(index, 1);
-    res.status(200).send({ message: "Produto removido com sucesso!" });
+    res.status(200).send({ message: "musica removida com sucesso!" });
   } else {
-    res.status(404).send({ message: "Produto não encontrado." });
+    res.status(404).send({ message: "musica não encontrada." });
   }
 });
 
 app.listen(3000, () => console.log("ready"));
+
